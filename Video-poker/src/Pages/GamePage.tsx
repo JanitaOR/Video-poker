@@ -1,5 +1,10 @@
 import "../App.css";
+import CurrentHand from "../Components/CurrentHand/CurrentHand";
 
 export default function GamePage() {
-  return <h1>Game</h1>;
+  return (
+    <>
+      <CurrentHand />
+    </>
+  );
 }
