@@ -5,3 +5,17 @@ button {
   color: white;
   border-radius: 16px;
 }
+button:hover {
+  background-color: chartreuse;
+  color: black;
+}
+
+button:active {
+  background-color: crimson;
+  color: black;
+}
+
+button:focus {
+  outline: 3px solid black;
+  outline-offset: 0.25rem;
+}

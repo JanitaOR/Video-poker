@@ -1,10 +1,13 @@
 import "../App.css";
-import CurrentHand from "../Components/CurrentHand/CurrentHand";
+import Game from "../Components/Game/Game";
+import PayoutTable from "../Components/PayoutTable/PayoutTable";
 
 export default function GamePage() {
   return (
-    <>
-      <CurrentHand />
-    </>
+    <main>
+      <h1>Video Poker</h1>
+      <PayoutTable />
+      <Game />
+    </main>
   );
 }
