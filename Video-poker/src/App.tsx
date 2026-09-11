@@ -3,7 +3,7 @@ import "./App.css";
 export default function App() {
   return (
     <main>
-      <h1>Hei</h1>
+      <h1>Welcome to Video Poker</h1>
     </main>
   );
 }
