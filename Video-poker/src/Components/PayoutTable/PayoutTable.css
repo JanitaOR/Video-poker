@@ -1,0 +1,23 @@
+table {
+  font-size: 24px;
+}
+
+td,
+th {
+  border-top: solid black 2px;
+  padding: 0 24px;
+}
+
+th {
+  text-align: left;
+}
+
+td {
+  width: 100px;
+  text-align: right;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+}

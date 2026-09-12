@@ -10,10 +10,26 @@
 .rank {
   font-size: 64px;
 }
+.rank-container {
+  grid-column: 2 / 3;
+  grid-row: 2;
+}
+
+.suit-right-down {
+  grid-column: 1 / 1;
+  grid-row: 1;
+}
+
+.suit-left-up {
+  grid-column: 3 / 3;
+  grid-row: 3;
+}
 
 .card,
 .front {
   display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 2fr 1fr;
   height: 15em;
   width: 10em;
   border-radius: 16px;
