@@ -5,7 +5,7 @@ export default function DealOrDrawBtn() {
     alert("deal er trykket");
   }
   return (
-    <button onClick={alertMe}>
+    <button type="button" onClick={alertMe}>
       <h2>Deal or Draw</h2>
     </button>
   );
