@@ -1,7 +1,6 @@
-export const suits = ["❤️", "♠️", "♦️", "♣️"];
+const suits = ["❤️", "♠️", "♦️", "♣️"];
 
-export const ranks = [
-  "1",
+const ranks = [
   "2",
   "3",
   "4",
@@ -16,3 +15,7 @@ export const ranks = [
   "K",
   "A",
 ];
+
+export const cardDeck = suits.flatMap((suit) =>
+  ranks.map((rank) => ({ suit, rank })),
+);
