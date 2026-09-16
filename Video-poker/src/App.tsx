@@ -5,6 +5,7 @@ import Card from "./Components/Card/Card";
 import type { PlayingCard } from "./Types/PlayingCard";
 
 export default function App() {
+  //dette skal i currentHand komponenten tror jeg.
   const [gameDeck, setGameDeck] = useState(cardDeck);
   const [playerHand, setPlayerHand] = useState<PlayingCard[]>([]);
 
