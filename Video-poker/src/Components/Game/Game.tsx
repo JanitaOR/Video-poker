@@ -13,6 +13,7 @@ export default function Game() {
         <CurrentBet />
         <TotalCoins />
       </div>
+
       <div className="btn-container">
         <BetOneCoinBtn />
         <MaxBetBtn />
