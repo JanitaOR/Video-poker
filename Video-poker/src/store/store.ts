@@ -1,12 +1,19 @@
+// https://www.youtube.com/watch?v=ULS7LHNScHc
+
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 type Bet = {
-  startBet: number;
+  bet: number;
+  incrementOne: () => void;
+  setMaxBet: () => void;
 };
 
-export const useBet: Bet = create((set) => ({
-  startBet: 1,
-  incrementOne: () => set((state: Bet) => ({ bet: state.startBet + 1 })),
-  setBet: () => set((state: Bet) => ({ bet: (state.startBet = 5) })),
+export const useBet = create<Bet>((set) => ({
+  bet: 1,
+  incrementOne: () =>
+    set((state: Bet) => ({
+      bet: state.bet === 5 ? 1 : state.bet + 1,
+    })),
+  setMaxBet: () => set((state: Bet) => ({ bet: (state.bet = 5) })),
 }));
