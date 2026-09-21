@@ -1,8 +1,8 @@
 import "../btn.css";
-import { useBet } from "../../../store/store";
+import { useBetStore } from "../../../store/store";
 
 export default function MaxBetBtn() {
-  const { setMaxBet } = useBet();
+  const { setMaxBet } = useBetStore();
   return (
     <button type="button" onClick={setMaxBet}>
       <h2>Max Bet</h2>

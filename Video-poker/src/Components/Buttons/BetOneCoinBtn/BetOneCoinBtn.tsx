@@ -1,8 +1,8 @@
 import "../btn.css";
-import { useBet } from "../../../store/store";
+import { useBetStore } from "../../../store/store";
 
 export default function BetOneCoinBtn() {
-  const { incrementOne } = useBet();
+  const { incrementOne } = useBetStore();
   return (
     <button type="button" onClick={incrementOne}>
       <h2>Bet 1</h2>
