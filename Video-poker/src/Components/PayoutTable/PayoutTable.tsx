@@ -3,7 +3,7 @@
 //https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Table_accessibility
 
 import "./PayoutTable.css";
-import { type TableRewards } from "../../Types/PayoutTable";
+import { type TableRewards } from "../../Types/Type.tsx";
 
 export default function PayoutTable() {
   const cardHandsRewards: TableRewards[] = [

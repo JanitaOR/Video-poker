@@ -1,4 +1,4 @@
-import type { PlayingCard } from "../../Types/PlayingCard";
+import type { PlayingCard } from "../../Types/Type.tsx";
 import "./Card.css";
 
 //jeg velger å legge både bakside og forside av kortet i

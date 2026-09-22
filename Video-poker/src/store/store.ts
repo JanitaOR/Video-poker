@@ -12,7 +12,7 @@ import { persist } from "zustand/middleware";
 //deck
 //hand
 //dicardedCards
-//gamePhase
+//gamePhase - waiting, holding, finished
 
 //ACTIONS
 //curentPlayer

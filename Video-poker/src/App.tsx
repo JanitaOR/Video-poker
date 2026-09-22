@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "./App.css";
-import { cardDeck } from "./Data/CardDeck";
+import { cardDeck } from "./Data/Data";
 import Card from "./Components/Card/Card";
-import type { PlayingCard } from "./Types/PlayingCard";
+import type { PlayingCard } from "./Types/Type.tsx";
 
 export default function App() {
   //dette skal i currentHand komponenten tror jeg.

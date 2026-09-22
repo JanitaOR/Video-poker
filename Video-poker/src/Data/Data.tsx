@@ -1,3 +1,5 @@
+export const startCoinValue = 100;
+
 const suits = ["❤️", "♠️", "♦️", "♣️"];
 
 const ranks = [
