@@ -1,7 +1,7 @@
 import "../btn.css";
 import {
   useBetStore,
-  useDeckStore,
+  //useDeckStore,
   useGameStore,
   useTotalCoins,
 } from "../../../store/store";
@@ -19,7 +19,7 @@ export default function DealOrDrawBtn() {
 
   return (
     <button type="button" onClick={dealOrDraw}>
-      <h2>Deal or Draw</h2>
+      Deal or Draw
     </button>
   );
 }

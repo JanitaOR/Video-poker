@@ -20,6 +20,7 @@ import { persist } from "zustand/middleware";
 
 import type { PlayingCard } from "../Types/Type";
 import { cardDeck, startCoinValue } from "../Data/Data";
+import CurrentBet from "../Components/CurrentBet/CurrentBet";
 
 type Bet = {
   currentBet: number;
@@ -39,7 +40,7 @@ type DeckState = {
   //discardedCards: PlayingCard[];
 
   shuffleDeck: () => void;
-  dealCards: () => void;
+  //dealCards: () => void;
 };
 
 type GamePhase = "waiting" | "holding" | "finished"; // union type
@@ -56,16 +57,76 @@ type GameState = {
   //finishGame: () => void;
 };
 
-export const useDeckStore = create<DeckState>()(
-  persist(
-    (set) => ({
-      deck: cardDeck, //kortstokken
-      hand: [], //ett tomt array hvor de 5 kortene som trekkes legges.
+// export const useDeckStore = create<DeckState>()(
+//   persist(
+//     (set) => ({
+//       deck: cardDeck, //kortstokken
+//       hand: [], //ett tomt array hvor de 5 kortene som trekkes legges.
 
-      //Fisher-Yates-algoritmen - gir hvert kort en rettferdig sjanse til å hhavne på hver plass
+//       //Fisher-Yates-algoritmen - gir hvert kort en rettferdig sjanse til å hhavne på hver plass
 
-      shuffleDeck: () =>
-        set((state) => {
+//       shuffleDeck: () =>
+//         set((state) => {
+//           const shuffled = [...state.deck]; //kopi av arrayet
+
+//           for (let i = shuffled.length - 1; i > 0; i--) {
+//             //i blir index i arrayet av kort - 1, her blir dette 51.
+
+//             const randomIndex = Math.floor(Math.random() * (i + 1)); //Math.random gir et tilfeldig tall mellom 0 og 1 , f.eks 0.73 (0.73 * 51 = 37,23 Math.floor runder dette ned til 37.)
+
+//             [shuffled[i], shuffled[randomIndex]] = [
+//               shuffled[randomIndex],
+//               shuffled[i],
+//             ];
+//             // i = 51, randomIndex = 37, dette sier at kortet/verdien som ligger på [i = 37] byttet plass med [randomIndex = 51]
+//             // [51, 37] = [37, 51]
+
+//             //andre runde blir i = 50 (pga i--), og sånn fortsetter det til
+//             // kortstokken er gått igjennom av denne for-loopen
+//             // og gir en shufflet kortstokk.
+//           }
+//           return {
+//             deck: shuffled,
+//           };
+//         }),
+//       // dealCards: () =>
+//       //   set((state) => {
+//       //     const numberOfCards = 5;
+//       //     const drawCards = state.deck.slice(0, numberOfCards); // hent kort fra index 0 til 5, kortene fra index0-4(5 kort)) og legger disse i drawCards)
+
+//       //     return {
+//       //       deck: state.deck.slice(numberOfCards),
+//       //       hand: drawCards,
+//       //     };
+//       //   }),
+//     }),
+//     {
+//       name: "shuffled-deck",
+//     },
+//   ),
+// );
+
+export const useGameStore = create<GameState>((set) => ({
+  gamePhase: "waiting",
+
+  deck: cardDeck,
+  hand: [],
+  heldCards: [],
+
+  dealOrDraw: () =>
+    // sette på persist etter at logikken er ferdig.
+    set(
+      (state) => {
+        console.log("dealOrDraw blir kjørt");
+        console.log("gamePhase:", state.gamePhase);
+
+        if (state.gamePhase === "waiting") {
+          //hvor mye er satset
+          const currentBet = useBetStore.getState().currentBet;
+
+          //shuffel deck
+          //useDeckStore.getState().shuffleDeck(); //shuffleDeck() kjører funksjonen, shuffleDeck henter funksjonen
+
           const shuffled = [...state.deck]; //kopi av arrayet
 
           for (let i = shuffled.length - 1; i > 0; i--) {
@@ -77,74 +138,36 @@ export const useDeckStore = create<DeckState>()(
               shuffled[randomIndex],
               shuffled[i],
             ];
-            // i = 51, randomIndex = 37, dette sier at kortet/verdien som ligger på [i = 37] byttet plass med [randomIndex = 51]
-            // [51, 37] = [37, 51]
-
-            //andre runde blir i = 50 (pga i--), og sånn fortsetter det til
-            // kortstokken er gått igjennom av denne for-loopen
-            // og gir en shufflet kortstokk.
           }
-          return {
-            deck: shuffled,
-          };
-        }),
-      dealCards: () =>
-        set((state) => {
-          const numberOfCards: number = 5;
-          const drawCards = state.deck.slice(0, numberOfCards); // hent kort fra index 0 til 5, kortene fra index0-4(5 kort)) og legger disse i drawCards)
+          //trekk 5 kort
+          //useDeckStore.getState().dealCards();
 
+          const numberOfCards = 5;
+          const drawCards = shuffled.slice(0, numberOfCards); // hent kort fra index 0 til 5, kortene fra index0-4(5 kort)) og legger disse i drawCards)
+
+          const remainingCards = shuffled.slice(numberOfCards);
+          const shuffleDeck = shuffled;
+          //const hand = drawCards;
+
+          console.log(currentBet, shuffleDeck, drawCards, remainingCards);
           return {
-            deck: state.deck.slice(numberOfCards),
+            gamePhase: "holding",
+            shuffledDeck: shuffleDeck,
+            deck: remainingCards,
             hand: drawCards,
           };
-        }),
-    }),
-    {
-      name: "shuffled-deck",
-    },
-  ),
-);
-
-export const useGameStore = create<GameState>()(
-  persist(
-    (set) => ({
-      gamePhase: "waiting",
-
-      deck: [],
-      hand: [],
-      heldCards: [],
-
-      dealOrDraw: () =>
-        set((state) => {
-          if (state.gamePhase === "waiting") {
-            //shuffel deck
-            const cardDeck = useDeckStore.getState().deck;
-
-            //trekk 5 kort
-            const dealCards = useDeckStore((state) => state.dealCards);
-            const hand = useDeckStore.getState().hand;
-
-            console.log(cardDeck, hand, dealCards);
-            return {
-              gamePhase: "holding",
-              deck: cardDeck,
-              hand: hand,
-            };
-          }
-          return state;
-        }),
-      toggleHeld: (card: PlayingCard) =>
-        set((state) => {
-          if (state.gamePhase === "holding") {
-            //hold kort
-          }
-        }),
-    }),
-    {
-      name: "game-state",
-    },
-  ),
-);
+        }
+        console.log("Ikke waiting!");
+        return state;
+      },
+      // toggleHeld: (card: PlayingCard) =>
+      //   set((state) => {
+      //     if (state.gamePhase === "holding") {
+      //       //hold kort
+      //     }
+      //}),
+    ),
+}));
 
 export const useTotalCoins = create<TotalCoins>()(
   persist(

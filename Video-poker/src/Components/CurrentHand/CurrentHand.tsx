@@ -1,9 +1,12 @@
 import "./CurrentHand.css";
 import CardAndHoldBtnContainer from "../CardAndHoldBtnContainer/CardAndHoldBtnContainer";
-import { useDeckStore } from "../../store/store";
+import { useGameStore } from "../../store/store";
+//import { useDeckStore } from "../../store/store";
 
 export default function CurrentHand() {
-  const hand = useDeckStore((state) => state.hand);
+  //const hand = useDeckStore((state) => state.hand);
+
+  const hand = useGameStore((state) => state.hand);
 
   return (
     <div className="currentHand">
