@@ -39,7 +39,21 @@ type DeckState = {
   //discardedCards: PlayingCard[];
 
   shuffleDeck: () => void;
-  dealCards: (amount: number) => void;
+  dealCards: () => void;
+};
+
+type GamePhase = "waiting" | "holding" | "finished"; // union type
+
+type GameState = {
+  gamePhase: GamePhase;
+
+  deck: PlayingCard[];
+  hand: PlayingCard[];
+  heldCards: PlayingCard[];
+
+  dealOrDraw: () => void;
+  //toggleHeld: (card: PlayingCard) => void;
+  //finishGame: () => void;
 };
 
 export const useDeckStore = create<DeckState>()(
@@ -74,18 +88,60 @@ export const useDeckStore = create<DeckState>()(
             deck: shuffled,
           };
         }),
-      dealCards: (amount) =>
+      dealCards: () =>
         set((state) => {
-          const drawCards = state.deck.slice(0, amount); // hent kort fra index 0 til amount(hvis man setter 5 her, så tas kortene fra index0-4(5 kort)) og legger disse i drawCards)
+          const numberOfCards: number = 5;
+          const drawCards = state.deck.slice(0, numberOfCards); // hent kort fra index 0 til 5, kortene fra index0-4(5 kort)) og legger disse i drawCards)
 
           return {
-            deck: state.deck.slice(amount),
+            deck: state.deck.slice(numberOfCards),
             hand: drawCards,
           };
         }),
     }),
     {
       name: "shuffled-deck",
+    },
+  ),
+);
+
+export const useGameStore = create<GameState>()(
+  persist(
+    (set) => ({
+      gamePhase: "waiting",
+
+      deck: [],
+      hand: [],
+      heldCards: [],
+
+      dealOrDraw: () =>
+        set((state) => {
+          if (state.gamePhase === "waiting") {
+            //shuffel deck
+            const cardDeck = useDeckStore.getState().deck;
+
+            //trekk 5 kort
+            const dealCards = useDeckStore((state) => state.dealCards);
+            const hand = useDeckStore.getState().hand;
+
+            console.log(cardDeck, hand, dealCards);
+            return {
+              gamePhase: "holding",
+              deck: cardDeck,
+              hand: hand,
+            };
+          }
+          return state;
+        }),
+      toggleHeld: (card: PlayingCard) =>
+        set((state) => {
+          if (state.gamePhase === "holding") {
+            //hold kort
+          }
+        }),
+    }),
+    {
+      name: "game-state",
     },
   ),
 );

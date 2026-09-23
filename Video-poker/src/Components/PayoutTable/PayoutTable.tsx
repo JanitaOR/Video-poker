@@ -7,6 +7,7 @@ import { type TableRewards } from "../../Types/Type.tsx";
 
 export default function PayoutTable() {
   const cardHandsRewards: TableRewards[] = [
+    //kanskje forandre fra hardkodede verdier til verdi * bet?
     {
       hand: "Royal Flush",
       bet1: 250,
@@ -90,6 +91,9 @@ export default function PayoutTable() {
         <tbody>
           {cardHandsRewards.map((reward: TableRewards) => {
             return (
+              //classname for å forandre på fargen på
+              // den spesifikke kolonnen med det
+              // spilleren satser.
               <tr>
                 <th scope="row">{reward.hand}</th>
                 <td>{reward.bet1}</td>
