@@ -3,26 +3,22 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-//import { Player } from "../Types/Player";
-
 //DATA:
 
 //players
 //currentPlayer
 //selectPlayer
 
-//hand
 //dicardedCards
 //gamePhase - waiting, holding, finished
 
-//deal
 //toggleHold
 //draw
 
 //calculatePayout
 //finishRound
 
-import type { Card, PlayingCard } from "../Types/Type";
+import type { PlayingCard } from "../Types/Type";
 import { cardDeck, startCoinValue } from "../Data/Data";
 
 type Bet = {
