@@ -1,10 +1,12 @@
 import "./CardAndHoldBtnContainer.css";
 import HoldCardBtn from "../Buttons/HoldCardBtn/HoldCardBtn";
-import Card from "../Card/Card";
+import CardComponent from "../Card/Card";
+
 import type { PlayingCard } from "../../Types/Type";
 
 type CardAndHoldBtnContainerProps = {
   card: PlayingCard;
+  //holdCard: Card;
 };
 
 export default function CardAndHoldBtnContainer({
@@ -12,7 +14,7 @@ export default function CardAndHoldBtnContainer({
 }: CardAndHoldBtnContainerProps) {
   return (
     <div className="card-btn-container">
-      <Card suit={card.suit} rank={card.rank} />
+      <CardComponent suit={card.suit} rank={card.rank} hold={card.hold} />
       <HoldCardBtn />
     </div>
   );

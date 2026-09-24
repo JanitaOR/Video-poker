@@ -17,7 +17,7 @@ const ranks = [
   "K",
   "A",
 ];
-
+const hold = false;
 export const cardDeck = suits.flatMap((suit) =>
-  ranks.map((rank) => ({ suit, rank })),
+  ranks.map((rank) => ({ suit, rank, hold })),
 );

@@ -7,13 +7,10 @@ export type Player = {
 export type PlayingCard = {
   suit: string;
   rank: string;
+  hold: boolean;
   //string fordi jeg vil bruke tekst for å
   // lagre verdien på kortet pga A, K, Q og J
   // og fordi jeg ikks skal bruke dem som tallverdier.
-};
-export type Card = {
-  card: PlayingCard;
-  hold: boolean;
 };
 
 export type PokerHand = {

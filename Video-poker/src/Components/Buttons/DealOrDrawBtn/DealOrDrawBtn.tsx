@@ -17,8 +17,25 @@ export default function DealOrDrawBtn() {
 
   const dealOrDraw = useGameStore((state) => state.dealOrDraw);
 
+  const toggleHeld = useGameStore((state) => state.toggleHeld);
+
+  function phase(gamePhase) {
+    if (
+      gamePhase === "waiting"
+      //hvis gamePhase er waiting
+    ) {
+      dealOrDraw();
+    }
+    if (
+      gamePhase === "holding"
+      //hvis gamePhase er holding
+    ) {
+      toggleHeld();
+    }
+  }
+
   return (
-    <button type="button" onClick={dealOrDraw}>
+    <button type="button" onClick={phase}>
       Deal or Draw
     </button>
   );

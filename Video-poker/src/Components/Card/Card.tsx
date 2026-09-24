@@ -9,7 +9,7 @@ import "./Card.css";
 
 //export default function Card(card: PlayingCard) {
 //export default function Card(suit: string, rank: string) {
-export default function Card({ suit, rank }: PlayingCard) {
+export default function CardComponent({ suit, rank }: PlayingCard) {
   console.log(suit, rank);
   return (
     <div>
