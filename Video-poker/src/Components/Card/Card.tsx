@@ -9,8 +9,8 @@ import "./Card.css";
 
 //export default function Card(card: PlayingCard) {
 //export default function Card(suit: string, rank: string) {
-export default function CardComponent({ suit, rank }: PlayingCard) {
-  console.log(suit, rank);
+export default function CardComponent({ suit, rank, hold }: PlayingCard) {
+  console.log(suit, rank, hold);
   return (
     <div>
       <div className="card back hidden"></div>

@@ -17,25 +17,30 @@ export default function DealOrDrawBtn() {
 
   const dealOrDraw = useGameStore((state) => state.dealOrDraw);
 
-  const toggleHeld = useGameStore((state) => state.toggleHeld);
+  //const toggleHeld = useGameStore((state) => state.toggleHeld);
 
-  function phase(gamePhase) {
-    if (
-      gamePhase === "waiting"
-      //hvis gamePhase er waiting
-    ) {
-      dealOrDraw();
-    }
-    if (
-      gamePhase === "holding"
-      //hvis gamePhase er holding
-    ) {
-      toggleHeld();
-    }
-  }
+  // function phase(gamePhase) {
+  //   if (
+  //     gamePhase === "waiting"
+  //     //hvis gamePhase er waiting
+  //   ) {
+  //    //knappen har teksten Deal
+  //     dealOrDraw();
+  //   }
+  //   if (
+  //     gamePhase === "holding"
+  //     //hvis gamePhase er holding
+  //   ) {
+  //    //kappen jar teksten Draw
+  //     toggleHeld();
+  //   }
+  //  if(gamePhase === "finished") {
+  //}
+  //    //knappen får teksten new game
+  // }
 
   return (
-    <button type="button" onClick={phase}>
+    <button type="button" onClick={dealOrDraw}>
       Deal or Draw
     </button>
   );

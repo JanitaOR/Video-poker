@@ -6,16 +6,19 @@ import type { PlayingCard } from "../../Types/Type";
 
 type CardAndHoldBtnContainerProps = {
   card: PlayingCard;
-  //holdCard: Card;
 };
+// type HoldCardBtnProps = {
+//   hold: boolean;
+// };
 
-export default function CardAndHoldBtnContainer({
-  card,
-}: CardAndHoldBtnContainerProps) {
+export default function CardAndHoldBtnContainer(
+  { card }: CardAndHoldBtnContainerProps,
+  //{ hold }: HoldCardBtnProps,
+) {
   return (
     <div className="card-btn-container">
       <CardComponent suit={card.suit} rank={card.rank} hold={card.hold} />
-      <HoldCardBtn />
+      <HoldCardBtn suit={card.suit} rank={card.rank} hold={card.hold} />;
     </div>
   );
 }

@@ -39,16 +39,14 @@ type GameState = {
 
   deck: PlayingCard[];
   hand: PlayingCard[];
-  //hand: Card[];
 
   heldCards: PlayingCard[];
   hold: boolean;
-  //discardedCards: PlayingCard[];
+  discardedCards: PlayingCard[];
 
   dealOrDraw: () => void;
-  //toggleHeld: (card: Card) => void;
   toggleHeld: (card: PlayingCard) => void;
-  toggleHold: () => void;
+  toggleHold: (card: PlayingCard) => void;
   //finishGame: () => void;
 };
 
@@ -59,6 +57,7 @@ export const useGameStore = create<GameState>((set) => ({
   hand: [],
   heldCards: [],
   hold: false,
+  discardedCards: [],
 
   dealOrDraw: () =>
     // sette på persist etter at logikken er ferdig.
@@ -71,7 +70,7 @@ export const useGameStore = create<GameState>((set) => ({
         const currentBet = useBetStore.getState().currentBet;
 
         //shuffel deck
-        //useDeckStore.getState().shuffleDeck(); //shuffleDeck() kjører funksjonen, shuffleDeck henter funksjonen
+        //når jeg bruker useDeckStore.getState().shuffleDeck(); for å hente data, så kjører shuffleDeck() funksjonen, shuffleDeck (uten()) henter funksjonen
 
         const shuffled = [...state.deck]; //kopi av arrayet
 
@@ -86,18 +85,15 @@ export const useGameStore = create<GameState>((set) => ({
           ];
         }
         //trekk 5 kort
-        //useDeckStore.getState().dealCards();
-
         const numberOfCards = 5;
         const drawCards = shuffled.slice(0, numberOfCards); // hent kort fra index 0 til 5, kortene fra index0-4(5 kort)) og legger disse i drawCards)
 
         const remainingCards = shuffled.slice(numberOfCards);
         const shuffleDeck = shuffled;
-        //const hand = drawCards;
 
         console.log(currentBet, shuffleDeck, drawCards, remainingCards);
         return {
-          gamePhase: "holding",
+          //gamePhase: "holding",
           shuffledDeck: shuffleDeck,
           deck: remainingCards,
           hand: drawCards,
@@ -107,10 +103,11 @@ export const useGameStore = create<GameState>((set) => ({
       return state;
     }),
 
-  toggleHold: () =>
+  toggleHold: (hold) =>
     set((state) => {
       if (state.hold === false) {
-        //Hold kort
+        alert("hold kortet");
+        console.log(hold);
       }
       return state;
     }),
