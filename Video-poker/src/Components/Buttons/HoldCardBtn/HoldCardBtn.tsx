@@ -9,18 +9,13 @@ type HoldCardBtnProps = {
 };
 
 export default function ({ card }: HoldCardBtnProps) {
-  const toggleHold = useGameStore((state) => state.toggleHold);
+  //const toggleHold = useGameStore((state) => state.toggleHold);
   console.log(card);
   function holdCard() {
-    //useGameStore((state) => state.toggleHold(card));
-    //const isHeld =
-    //console.log(card.hold);
     console.log(card);
+    //console.log(card.hold);
 
-    // if (isHeld === false) {
-    //   (e) => e.currentTarget((isHeld = true));
-    // }
-    //skal forandre hold til true på det kortet som tilhører knappen
+    useGameStore.getState().toggleHold(card);
   }
 
   return (

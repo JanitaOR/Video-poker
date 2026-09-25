@@ -7,18 +7,14 @@ import type { PlayingCard } from "../../Types/Type";
 type CardAndHoldBtnContainerProps = {
   card: PlayingCard;
 };
-// type HoldCardBtnProps = {
-//   hold: boolean;
-// };
 
-export default function CardAndHoldBtnContainer(
-  { card }: CardAndHoldBtnContainerProps,
-  //{ hold }: HoldCardBtnProps,
-) {
+export default function CardAndHoldBtnContainer({
+  card,
+}: CardAndHoldBtnContainerProps) {
   return (
     <div className="card-btn-container">
       <CardComponent suit={card.suit} rank={card.rank} hold={card.hold} />
-      <HoldCardBtn suit={card.suit} rank={card.rank} hold={card.hold} />;
+      <HoldCardBtn card={card} />
     </div>
   );
 }

@@ -103,11 +103,10 @@ export const useGameStore = create<GameState>((set) => ({
       return state;
     }),
 
-  toggleHold: (hold) =>
+  toggleHold: (card) =>
     set((state) => {
       if (state.hold === false) {
-        alert("hold kortet");
-        console.log(hold);
+        console.log(card);
       }
       return state;
     }),
