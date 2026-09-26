@@ -1,3 +1,4 @@
+import { useClassStore } from "../../store/store.ts";
 import type { PlayingCard } from "../../Types/Type.tsx";
 import "./Card.css";
 
@@ -11,10 +12,13 @@ import "./Card.css";
 //export default function Card(suit: string, rank: string) {
 export default function CardComponent({ suit, rank, hold }: PlayingCard) {
   console.log(suit, rank, hold);
+  const classHold = useClassStore((state) => state.classNameHold);
+  console.log(classHold);
+
   return (
     <div>
       <div className="card back hidden"></div>
-      <div className="card front">
+      <div className={`card front ${classHold}`}>
         <div className="suit-left-up">
           <p className="suit">{suit}</p>
         </div>

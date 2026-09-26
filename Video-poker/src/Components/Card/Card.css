@@ -44,3 +44,9 @@
 .hidden {
   display: none;
 }
+.hold {
+  border: solid black 4px;
+}
+.no-hold {
+  border: solid black 2px;
+}
