@@ -9,11 +9,12 @@ export default function Game() {
   return (
     <>
       <CurrentHand />
-      <div>
+      <div className="bet-coin-container">
         <CurrentBet />
         <TotalCoins />
       </div>
-      <div>
+
+      <div className="btn-container">
         <BetOneCoinBtn />
         <MaxBetBtn />
         <DealOrDrawBtn />

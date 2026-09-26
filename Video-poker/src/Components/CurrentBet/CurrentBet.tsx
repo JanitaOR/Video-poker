@@ -1,3 +1,6 @@
+import { useBetStore } from "../../store/store";
+
 export default function CurrentBet() {
-  return <h3>Current Bet: 1</h3>;
+  const { currentBet } = useBetStore();
+  return <h3>Current Bet: {currentBet}</h3>;
 }

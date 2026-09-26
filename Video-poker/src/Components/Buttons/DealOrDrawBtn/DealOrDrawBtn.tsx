@@ -1,12 +1,22 @@
 import "../btn.css";
+import { useGameStore } from "../../../store/store";
 
 export default function DealOrDrawBtn() {
-  function alertMe() {
-    alert("deal er trykket");
+  const dealOrDraw = useGameStore((state) => state.dealOrDraw);
+  const toggleHeld = useGameStore((state) => state.toggleHeld);
+  const gamePhase = useGameStore((state) => state.gamePhase);
+  function gameState() {
+    if (gamePhase === "waiting") {
+      dealOrDraw();
+    }
+    if (gamePhase === "holding") {
+      toggleHeld();
+    }
   }
+
   return (
-    <button type="button" onClick={alertMe}>
-      <h2>Deal or Draw</h2>
+    <button type="button" onClick={gameState}>
+      Deal or Draw
     </button>
-  );
+  ); // denne ; må bort!!!!
 }

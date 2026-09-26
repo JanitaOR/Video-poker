@@ -7,7 +7,7 @@ export default function GamePage() {
     <main>
       <h1>Video Poker</h1>
       <PayoutTable />
-      <Game />
+      <Game />;
     </main>
   );
 }
