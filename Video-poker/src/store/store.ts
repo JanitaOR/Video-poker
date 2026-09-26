@@ -75,6 +75,13 @@ export const useGameStore = create<GameState>((set) => ({
   hold: false,
   discardedCards: [],
 
+  /**
+   *
+   * @returns hvilke spillfase spillet er i,
+   * en ny shuflet kortstokk, hand med 5 kort,
+   * kortstokk som disse er tatt i fra.
+   */
+
   dealOrDraw: () =>
     // sette på persist etter at logikken er ferdig.
     set((state) => {
@@ -116,6 +123,13 @@ export const useGameStore = create<GameState>((set) => ({
       return state;
     }),
 
+  /**
+   *
+   * @param card hvilket suit, rank  og holdstatus kortet som trykkes på har
+   * @returns forandrer hold til true eller false
+   * og returnerer kortet med ny holdstatus
+   */
+
   toggleHold: (card) =>
     set((state) => {
       console.log(state.hand);
@@ -135,6 +149,11 @@ export const useGameStore = create<GameState>((set) => ({
       console.log(newHand);
       return { hand: newHand };
     }),
+
+  /**
+   *
+   * @returns
+   */
 
   toggleHeld: () =>
     set((state) => {
@@ -165,10 +184,8 @@ export const useGameStore = create<GameState>((set) => ({
             //
             const newCard = newCards.shift(); // hvordan få denne til å teste at den ikke blir undefined
 
-            while ((newCard = newCards()) !== "undefined") {
-              console.log(newCard);
-              return newCard;
-            }
+            console.log(newCard);
+            return newCard;
           }
           return card;
         });
@@ -190,6 +207,14 @@ export const useTotalCoins = create<TotalCoins>()(
   persist(
     (set) => ({
       playersCoins: startCoinValue, // byttes ved skifte av spiller?
+
+      /**
+       *
+       * @param amount hva spilleren satser
+       * @returns det som er igjen i totalCoins
+       * etter at satsen er satt.
+       */
+
       subtractCoins: (amount) =>
         set((state) => ({
           playersCoins: state.playersCoins - amount,
@@ -205,10 +230,25 @@ export const useBetStore = create<Bet>()(
   persist(
     (set) => ({
       currentBet: 1,
+
+      /**
+       *
+       * @returns hvor mye spilleren satser,
+       * ved å gå opp 1 coin for hver trykk opp
+       * til 5 før den går ned til 1 igjen.
+       */
+
       incrementOne: () =>
         set((state: Bet) => ({
           currentBet: state.currentBet === 5 ? 1 : state.currentBet + 1,
         })),
+
+      /**
+       *
+       * @returns spiller satser 5 coins,
+       * uansett hva den var før dette.
+       */
+
       setMaxBet: () =>
         set((state: Bet) => ({ currentBet: (state.currentBet = 5) })),
     }),
