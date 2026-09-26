@@ -45,10 +45,26 @@ type GameState = {
   discardedCards: PlayingCard[];
 
   dealOrDraw: () => void;
-  toggleHeld: (card: PlayingCard) => void;
+  toggleHeld: () => void;
   toggleHold: (card: PlayingCard) => void;
-  //finishGame: () => void;
+  finishGame: () => void;
 };
+
+type classStoreHold = "no-hold" | "hold";
+
+type classStore = {
+  classNameHold: classStoreHold;
+  changeClassHold: () => void;
+};
+
+export const useClassStore = create<classStore>((set) => ({
+  classNameHold: "no-hold",
+  //forandre className på kortet slik at man ser at de er holdt eller ikke
+  changeClassHold: () =>
+    set(() => ({
+      classNameHold: classNameHold,
+    })),
+}));
 
 export const useGameStore = create<GameState>((set) => ({
   gamePhase: "waiting",
@@ -62,9 +78,6 @@ export const useGameStore = create<GameState>((set) => ({
   dealOrDraw: () =>
     // sette på persist etter at logikken er ferdig.
     set((state) => {
-      console.log("dealOrDraw blir kjørt");
-      console.log("gamePhase:", state.gamePhase);
-
       if (state.gamePhase === "waiting") {
         //hvor mye er satset
         const currentBet = useBetStore.getState().currentBet;
@@ -93,7 +106,7 @@ export const useGameStore = create<GameState>((set) => ({
 
         console.log(currentBet, shuffleDeck, drawCards, remainingCards);
         return {
-          //gamePhase: "holding",
+          gamePhase: "holding",
           shuffledDeck: shuffleDeck,
           deck: remainingCards,
           hand: drawCards,
@@ -105,21 +118,72 @@ export const useGameStore = create<GameState>((set) => ({
 
   toggleHold: (card) =>
     set((state) => {
-      if (state.hold === false) {
-        console.log(card);
-      }
-      return state;
+      console.log(state.hand);
+      //const newHand: PlayingCard[] = [...state.hand];
+
+      const newHand = state.hand.map((cardInHand) => {
+        if (cardInHand.suit === card.suit && cardInHand.rank === card.rank) {
+          console.log(card);
+          //cardInHand.hold = !cardInHand.hold;
+          console.log(cardInHand);
+
+          return { ...cardInHand, hold: !cardInHand.hold };
+        }
+        return cardInHand;
+      });
+      console.log(state);
+      console.log(newHand);
+      return { hand: newHand };
     }),
 
   toggleHeld: () =>
     set((state) => {
       if (state.gamePhase === "holding") {
-        //finn kort med hold
-        //putt kortene med hold i discardedCards[]
+        //finn kort med hold:false og putt kortene med hold i discardedCards[]
+        const heldCards = state.hand.filter((card) => card.hold === true); //trenger jeg egentlig denne?
+        const discardedCards = state.hand.filter((card) => card.hold === false);
+
+        console.log(heldCards);
+        console.log(discardedCards);
+
         // trekk nye kort for disse kortene
+        const numberOfCardToDraw = discardedCards.length;
+        console.log(numberOfCardToDraw);
+        console.log(state.hand);
+        console.log(state.deck);
+
+        const newCards = state.deck.slice(0, numberOfCardToDraw);
+        const remainingCards = state.deck.slice(numberOfCardToDraw);
+
+        console.log("discarded:", discardedCards.length);
+        console.log("newCards:", newCards.length);
+
+        const newHand = state.hand.map((card) => {
+          if (card.hold === false) {
+            //
+            //
+            //
+            const newCard = newCards.shift(); // hvordan få denne til å teste at den ikke blir undefined
+
+            while ((newCard = newCards()) !== "undefined") {
+              console.log(newCard);
+              return newCard;
+            }
+          }
+          return card;
+        });
+        console.log(newHand);
+        console.log(newCards);
+        return {
+          hand: newHand,
+          deck: remainingCards,
+          discardedCards: discardedCards,
+        };
       }
       return state;
     }),
+  //siste fase i spillet
+  finishGame: () => ({}),
 }));
 
 export const useTotalCoins = create<TotalCoins>()(

@@ -1,6 +1,6 @@
 import "../btn.css";
 
-import { useGameStore } from "../../../store/store";
+import { useClassStore, useGameStore } from "../../../store/store";
 import type { PlayingCard } from "../../../Types/Type";
 
 type HoldCardBtnProps = {
@@ -10,12 +10,19 @@ type HoldCardBtnProps = {
 
 export default function ({ card }: HoldCardBtnProps) {
   //const toggleHold = useGameStore((state) => state.toggleHold);
+
+  const classHold = useClassStore((state) => state.classNameHold);
+  const changeClass = useClassStore((state) => state.changeClassHold);
   console.log(card);
   function holdCard() {
     console.log(card);
     //console.log(card.hold);
 
     useGameStore.getState().toggleHold(card);
+
+    const holdClass = changeClass;
+
+    console.log(classHold);
   }
 
   return (
