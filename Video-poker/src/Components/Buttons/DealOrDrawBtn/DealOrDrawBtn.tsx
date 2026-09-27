@@ -12,6 +12,7 @@ export default function DealOrDrawBtn() {
     if (gamePhase === "holding") {
       toggleHeld();
     }
+    //finishGame()
   }
 
   return (
