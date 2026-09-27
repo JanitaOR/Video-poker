@@ -23,7 +23,7 @@ export default function ({ card }: HoldCardBtnProps) {
 
   return (
     <button type="button" onClick={holdCard}>
-      <p>Hold card</p>
+      Hold card
     </button>
   );
 }

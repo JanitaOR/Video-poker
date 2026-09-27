@@ -5,7 +5,7 @@ export default function BetOneCoinBtn() {
   const { incrementOne } = useBetStore();
   return (
     <button type="button" onClick={incrementOne}>
-      <h2>Bet 1</h2>
+      Bet 1
     </button>
   );
 }
