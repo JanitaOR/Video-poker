@@ -1,11 +1,11 @@
 // https://www.youtube.com/watch?v=ULS7LHNScHc
+// https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 //DATA:
 
-//players
 //currentPlayer
 //selectPlayer
 
@@ -13,7 +13,7 @@ import { persist } from "zustand/middleware";
 
 //calculatePayout
 //finishRound
-
+import type { Player } from "../Types/Type";
 import type { PlayingCard } from "../Types/Type";
 import { cardDeck, startCoinValue } from "../Data/Data";
 
@@ -45,6 +45,40 @@ type GameState = {
   toggleHold: (card: PlayingCard) => void;
   finishGame: () => void;
 };
+
+type PlayerListState = {
+  playerList: Player[];
+  NewPlayer: (playerName: string) => void;
+  //CurrentPlayer: () => void;
+};
+
+export const PlayerStore = create<PlayerListState>()(
+  persist(
+    (set) => ({
+      playerList: [],
+
+      /**
+       *
+       * @param playerName input value fra NewPlayer komponenten
+       */
+      NewPlayer: (playerName: string) => {
+        const newPlayer: Player = {
+          id: crypto.randomUUID(),
+          name: playerName,
+          coins: startCoinValue,
+        };
+
+        set((state) => ({
+          playerList: [...state.playerList, newPlayer],
+        }));
+      },
+    }),
+
+    {
+      name: "players",
+    },
+  ),
+);
 
 export const useGameStore = create<GameState>()(
   persist(
@@ -186,6 +220,7 @@ export const useGameStore = create<GameState>()(
     },
   ),
 );
+
 export const useTotalCoins = create<TotalCoins>()(
   persist(
     (set) => ({

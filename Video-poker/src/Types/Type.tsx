@@ -3,15 +3,15 @@ export type Player = {
   name: string;
   coins: number;
 };
-export type PlayerList = {
-  players: Player[];
-};
+// export type PlayerList = {
+//   players: Player[];
+// };
 
 export type PlayingCard = {
   suit: string;
   rank: string;
   hold: boolean;
-  //string på rank fordi jeg vil bruke tekst for å
+  //string på fordi jeg vil bruke tekst for å
   // lagre verdien på kortet pga A, K, Q og J
   // og fordi jeg ikks skal bruke dem som tallverdier.
 };
