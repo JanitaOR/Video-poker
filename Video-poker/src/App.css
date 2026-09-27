@@ -1,7 +1,10 @@
 h1 {
-  font-size: 32;
+  font-size: 2rem;
 }
 
 main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-align: center;
 }
