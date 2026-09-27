@@ -127,7 +127,10 @@ export const useGameStore = create<GameState>((set) => ({
 
   /**
    *
-   * @returns
+   * @returns oppdatterer gamePhase status "finished",
+   * legger den nye hånda i hand, kort uten
+   * hold i discardedCards og resten av
+   * kortstokken etter å ha trekt nye kort i deck.
    */
 
   toggleHeld: () =>
@@ -150,9 +153,6 @@ export const useGameStore = create<GameState>((set) => ({
             if (newCard !== undefined) {
               return newCard;
             }
-
-            console.log(newCard);
-            return newCard;
           }
           return card;
         });
