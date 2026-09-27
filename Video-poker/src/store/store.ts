@@ -9,11 +9,7 @@ import { persist } from "zustand/middleware";
 //currentPlayer
 //selectPlayer
 
-//dicardedCards
 //gamePhase - waiting, holding, finished
-
-//toggleHold
-//draw
 
 //calculatePayout
 //finishRound
@@ -49,22 +45,6 @@ type GameState = {
   toggleHold: (card: PlayingCard) => void;
   finishGame: () => void;
 };
-
-type classStoreHold = "no-hold" | "hold";
-
-type classStore = {
-  classNameHold: classStoreHold;
-  changeClassHold: () => void;
-};
-
-export const useClassStore = create<classStore>((set) => ({
-  classNameHold: "no-hold",
-  //forandre className på kortet slik at man ser at de er holdt eller ikke
-  changeClassHold: () =>
-    set(() => ({
-      classNameHold: classNameHold,
-    })),
-}));
 
 export const useGameStore = create<GameState>((set) => ({
   gamePhase: "waiting",
