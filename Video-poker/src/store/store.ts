@@ -9,13 +9,13 @@ import { persist } from "zustand/middleware";
 //currentPlayer
 //selectPlayer
 
-//gamePhase - waiting, holding, finished
-
 //calculatePayout
-//finishRound
+
 import type { Player } from "../Types/Type";
 import type { PlayingCard } from "../Types/Type";
 import { cardDeck, startCoinValue } from "../Data/Data";
+import CurrentBet from "../Components/CurrentBet/CurrentBet";
+import type CurrentHand from "../Components/CurrentHand/CurrentHand";
 
 type Bet = {
   currentBet: number;
@@ -209,11 +209,23 @@ export const useGameStore = create<GameState>()(
           return state;
         }),
       //siste fase i spillet
-      finishGame: () => ({
-        //skjekker gevinst
-        //legger til gevinst i totalCoins
-        //forandrer gamePhase til waiting
-      }),
+      finishGame: () =>
+        set((state) => {
+          if (state.gamePhase === "finished") {
+            return {
+              gamePhase: "waiting",
+              deck: cardDeck,
+              hand: [],
+              heldCards: [],
+              hold: false,
+              discardedCards: [],
+            };
+          }
+          return {};
+        }),
+      //skjekker gevinst
+      //skjekke hva satsen er og gang dette med gevinsten.
+      //legger til gevinst i totalCoins hvis gevinst, trenger playersCoins fra useTotalCoins,
     }),
     {
       name: "gamePhase",

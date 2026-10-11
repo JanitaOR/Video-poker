@@ -4,15 +4,21 @@ import { useGameStore } from "../../../store/store";
 export default function DealOrDrawBtn() {
   const dealOrDraw = useGameStore((state) => state.dealOrDraw);
   const toggleHeld = useGameStore((state) => state.toggleHeld);
+  const finishGame = useGameStore((state) => state.finishGame);
   const gamePhase = useGameStore((state) => state.gamePhase);
   function gameState() {
     if (gamePhase === "waiting") {
+      console.log("waiting");
       dealOrDraw();
     }
     if (gamePhase === "holding") {
+      console.log("holding");
       toggleHeld();
     }
-    //finishGame()
+    if (gamePhase === "finished") {
+      console.log("Finished");
+      finishGame();
+    }
   }
 
   return (

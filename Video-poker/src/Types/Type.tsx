@@ -28,3 +28,19 @@ export type TableRewards = {
   bet4: number;
   bet5: number;
 };
+
+export type handType =
+  | "royalFlush"
+  | "straightFlush"
+  | "fourOfAKind"
+  | "flush"
+  | "straight"
+  | "threeOfAKind"
+  | "twoPair"
+  | "jacksOrBetter"
+  | "nothing";
+
+// royal flush må ha 10, J, Q, K og A i samme suit
+// flush alle kortene har samme suit,
+// straight flush må ha 5 på rekke og samme farge
+// straight er når det er 5 kort i rekkefølge
