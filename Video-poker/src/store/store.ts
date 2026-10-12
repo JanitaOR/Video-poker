@@ -14,8 +14,6 @@ import { persist } from "zustand/middleware";
 import type { Player } from "../Types/Type";
 import type { PlayingCard } from "../Types/Type";
 import { cardDeck, startCoinValue } from "../Data/Data";
-import CurrentBet from "../Components/CurrentBet/CurrentBet";
-import type CurrentHand from "../Components/CurrentHand/CurrentHand";
 
 type Bet = {
   currentBet: number;
@@ -99,7 +97,8 @@ export const useGameStore = create<GameState>()(
        */
 
       dealOrDraw: () =>
-        // sette på persist etter at logikken er ferdig.
+        //skjekk om spiller har penger før man starter.
+
         set((state) => {
           if (state.gamePhase === "waiting") {
             //hvor mye er satset
@@ -212,6 +211,52 @@ export const useGameStore = create<GameState>()(
       finishGame: () =>
         set((state) => {
           if (state.gamePhase === "finished") {
+            if (state.hand.length === 5) {
+              const hand: PlayingCard[] = state.hand;
+
+              //samme suit
+              const isFlush = hand.every((card) => card.suit === hand[0].suit); //har alle kortene samme suit? true/false
+
+              // for å få royal flush må man ha denne rekka
+              const royalRank = ["10", "J", "Q", "K", "A"];
+
+              const rank = hand.map((card) => card.rank);
+              const unikRank = new Set(rank); //samler på unike verdier
+
+              console.log(unikRank.size); //for å kunne ha en royal flush så må det være 5 unike rank i unikRank for at det skal være sant.
+
+              const hasRoyalRank = hand.every((card) =>
+                royalRank.includes(card.rank),
+              ); // finnes alle rankene fra royalRank true/false
+
+              const isRoyalFlush =
+                isFlush === true &&
+                hasRoyalRank === true &&
+                unikRank.size === 5;
+
+              console.log(isFlush);
+              console.log(isRoyalFlush);
+              console.log(hasRoyalRank);
+
+              if (isRoyalFlush === true) {
+                alert("RoyalFlush"); //beregn gevinst
+              }
+              if (isFlush === true) {
+                alert("Flush!!"); //beregn gevinst
+              }
+            }
+
+            //har skjekket:
+            // "royalFlush" -----ja
+            // "straightFlush" -----
+            // "fourOfAKind" -----
+            // "flush" -----ja
+            // "straight" -----
+            // "threeOfAKind" -----
+            // "twoPair" -----
+            // "jacksOrBetter" -----
+            // "nothing"; -----
+
             return {
               gamePhase: "waiting",
               deck: cardDeck,
