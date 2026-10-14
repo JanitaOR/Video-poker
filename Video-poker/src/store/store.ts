@@ -217,7 +217,7 @@ export const useGameStore = create<GameState>()(
               //samme suit
               const isFlush = hand.every((card) => card.suit === hand[0].suit); //har alle kortene samme suit? true/false
 
-              // for å få royal flush må man ha denne rekka
+              // for å få royal flush må man ha denne rekka + samme suit
               const royalRank = ["10", "J", "Q", "K", "A"];
 
               const rank = hand.map((card) => card.rank);
@@ -244,7 +244,45 @@ export const useGameStore = create<GameState>()(
               if (isFlush === true) {
                 alert("Flush!!"); //beregn gevinst
               }
+
+              const rankValues: Record<string, number> = {
+                J: 11,
+                Q: 12,
+                K: 13,
+                A: 14,
+              };
+
+              function getRankValue(rank: string): number {
+                if (rank in rankValues) {
+                  return rankValues[rank];
+                }
+                return Number(rank);
+              }
+
+              const cardValues = hand.map((card) => getRankValue(card.rank));
+
+              console.log(cardValues);
+
+              const sortedCards = cardValues.sort(function (a, b) {
+                return a - b;
+              });
+
+              console.log(sortedCards);
+
+              sortedCards.forEach((card) => {
+                console.log(card);
+                let i = 0 + 1;
+                if (sortedCards[i] === sortedCards[i + 1] + 1) {
+                  return console.log("en fra");
+                } else {
+                  console.log("ikke en fra");
+                }
+              });
             }
+
+            //for å finde like kort sjekk om det første
+            // kortet har noen like, hvis ikke, neste
+            // kort frem til 4 kort. 5 kortet har ikke noen flere å sjekke
 
             //har skjekket:
             // "royalFlush" -----ja
