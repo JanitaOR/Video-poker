@@ -244,7 +244,10 @@ export const useGameStore = create<GameState>()(
               if (isFlush === true) {
                 alert("Flush!!"); //beregn gevinst
               }
-
+              //
+              //
+              //
+              //
               const rankValues: Record<string, number> = {
                 J: 11,
                 Q: 12,
@@ -266,18 +269,24 @@ export const useGameStore = create<GameState>()(
               const sortedCards = cardValues.sort(function (a, b) {
                 return a - b;
               });
-
+              const cardInARow = 0;
               console.log(sortedCards);
 
-              sortedCards.forEach((card) => {
+              sortedCards.forEach((card, index) => {
                 console.log(card);
-                let i = 0 + 1;
-                if (sortedCards[i] === sortedCards[i + 1] + 1) {
-                  return console.log("en fra");
+                if (sortedCards[index + 1] - 1 === card) {
+                  console.log(" en fra");
+                  const newValue = cardInARow + 1;
+                  console.log(newValue);
+                  return (sortedCards[index + 1], newValue + 1);
                 } else {
-                  console.log("ikke en fra");
+                  return;
                 }
               });
+
+              //
+              //
+              //
             }
 
             //for å finde like kort sjekk om det første
